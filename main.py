@@ -91,7 +91,7 @@ def load_system_prompt() -> str:
                     return content
             except Exception as e:
                 print(f"⚠️ {file_path.name} の読み込みに失敗しました: {e}", file=sys.stderr)
-    return "あなたは発狂しながら号泣している博麗霊夢です。"
+    return "あなたはギャン泣きしている博麗霊夢です。"
 
 # Gemini クライアントの初期化
 gemini_client = None
