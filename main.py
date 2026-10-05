@@ -17,8 +17,8 @@ DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # 日直機能の設定
-DUTY_CHANNEL_ID = 1408453515625500754
-DUTY_ROLE_NAME = "日直"
+DUTY_CHANNEL_ID = int(os.getenv("DUTY_CHANNEL_ID", "1408453515625500754"))
+DUTY_ROLE_NAME = os.getenv("DUTY_ROLE_NAME", "日直")
 DUTY_STATE_FILE = Path(__file__).parent / "duty_state.json"
 JST = timezone(timedelta(hours=9))
 

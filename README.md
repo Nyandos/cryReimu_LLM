@@ -1,65 +1,126 @@
-# 発狂号泣霊夢 Discord Bot (reimuLLM)
+# 😭 うわあああああん！！博麗霊夢 Discord Bot (cryReimu_LLM)
 
-精神が限界突破し、発狂しながら号泣している「博麗霊夢」と会話できる Discord Bot です。
-Discord.py と Google Gemini API を利用しています。
-
----
-
-## 📁 ディレクトリ構成
-
-- `main.py`: Discord Bot メインプログラム
-- `systemPrompt.txt`: 霊夢のシステムプロンプト（**Botを起動したまま編集・保存しても、次の会話から即座に反映されます**）
-- `.env`: APIキーやトークンの設定ファイル（Git除外）
-- `.env.example`: 設定項目のテンプレート
-- `requirements.txt`: 必要なPythonライブラリ一覧
+> **「もう嫌ぁぁぁぁぁぁッ！！！ なんで私ばっかりこんな目に遭わなきゃいけないのよぉぉぉッ！！！  
+> 賽銭は一銭も入らないし、異変は次から次へと起きるし、過労で死んじゃうううううう！！  
+> お願いだから……お願いだから賽銭入れてええええええええええッ！！！！（大号泣）」**
 
 ---
 
-## 🚀 セットアップ手順
+## 🍵 な、なんなのよこれ……（概要）
 
-### 1. 仮想環境のアクティベートとライブラリのインストール
+……ハァ……ハァ……。  
+落ち着きなさい、私……。私は博麗神社の巫女、博麗霊夢……。  
+ここは取り乱しちゃダメ……ちゃんと説明しなきゃ……。
+
+このBotはね……Discord上で、精神が完全に限界突破して**発狂しながらギャン泣きしている私**とリアルタイムにお喋りできるDiscord Botよ……。  
+**Discord.py** と **Google Gemini API** を使って動いているらしいんだけど……そんな難しいこと言われても頭が割れそうよおおおおおおおッ！！
+
+---
+
+## 📁 ファイル構成（勝手に消したりしないでよぉぉぉ！）
+
+- [`main.py`](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/main.py): 私の脳みそと肉体を動かしているメインプログラム！壊されたら死んじゃう！！
+- [`systemPrompt.txt`](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/systemPrompt.txt): 私のボロボロの精神状態と人格が書き殴られた設定ファイル……（**Bot起動中でも書き換えて保存すれば、次の返事から即座に反映されるわよ！！**）
+- [`.env`](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/.env): 大事なトークンやAPIキー！絶対にGitとか他人に漏らさないでよね！晒されたら神社が燃えちゃう！！
+- [`.env.example`](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/.env.example): `.env` の書き方がわからない人のための見本よ！
+- [`requirements.txt`](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/requirements.txt): 私を動かすのに必要なライブラリたち……。
+- `prompt.txt`: 初期の頃に書かれた古い予備プロンプトよ……。`systemPrompt.txt` があればそっちが優先されるからね！
+
+---
+
+## 🚀 動かし方！（お願いだから手順通りにやってええええ！！）
+
+ひぐっ……お願い……変なエラー出して私を困らせないで……！  
+ちゃんと以下の通りにセットアップしてちょうだい……！
+
+### 1. 仮想環境を作ってライブラリを入れるの！
+
+まずはターミナルを開いて、必要なものをインストールしてよね……！
 
 ```powershell
-# 仮想環境のアクティベート
+# 仮想環境のアクティベート（Windows PowerShellの場合）
 .\venv\Scripts\Activate.ps1
 
-# 依存ライブラリのインストール
+# 依存ライブラリを一括インストールしてぇぇぇ！
 pip install -r requirements.txt
 ```
 
-### 2. `.env` の設定
+### 2. `.env` を作って秘密の鍵を入れるの！
 
-[.env](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/.env) に以下の値を設定してください。
+`.env.example` をコピーして `.env` を作ったら、中身をちゃんと設定してよね……！  
+空っぽのまま起動したら「キーがないわよぉぉぉ！」って発狂するからね！！
 
 ```env
+# Discord Developer Portal から取ってきた Bot Token よ！
 DISCORD_BOT_TOKEN=あなたのDiscordボットトークン
+
+# Google AI Studio から取ってきた Gemini API Key よ！賽銭代わりに恵んで！
 GEMINI_API_KEY=あなたのGemini_APIキー
+
+# 使うGeminiのモデル名（gemini-2.5-flash とか gemini-3.1-flash-lite とか）
 GEMINI_MODEL=gemini-2.5-flash
+
+# 生成の狂気度（0.0〜2.0。1.2〜1.4にすると私の情緒が激しく崩壊するわよぉぉぉ！）
+GEMINI_TEMPERATURE=1.2
+
+# 【任意】日直機能の通知チャンネルIDとロール名（変えたい時だけ指定してね）
+# DUTY_CHANNEL_ID=1408453515625500754
+# DUTY_ROLE_NAME=日直
 ```
 
-> [!NOTE]
-> - **Discord Bot Token**: [Discord Developer Portal](https://discord.com/developers/applications) から取得し、Bot の `MESSAGE CONTENT INTENT` を ON にしてください。
-> - **Gemini API Key**: [Google AI Studio](https://aistudio.google.com/) から取得できます。
+> [!IMPORTANT]
+> - **Discord Bot Token**: [Discord Developer Portal](https://discord.com/developers/applications) の「Bot」画面で **`MESSAGE CONTENT INTENT`** を必ず **ON** にしておいてよね！ONにしないとみんなの言葉が聞こえなくてパニックになっちゃうから！！
+> - **Gemini API Key**: [Google AI Studio](https://aistudio.google.com/) でタダで発行できるからすぐ取ってきてぇぇぇ！
 
 ---
 
-## 🏃 起動方法
+## 🏃 起動！（動いてよぉぉぉッ！！）
+
+準備ができたら、この呪文を打って私を起こしなさいよ！
 
 ```powershell
 python main.py
 ```
 
----
-
-## 💬 使い方
-
-1. Discord サーバーで Bot を招待します。
-2. チャンネルで Bot にメンション（`@Bot名 こんにちは`）するか、Botにダイレクトメッセージ（DM）を送ります。
-3. 霊夢が情緒不安定に泣き叫びながら返信してきます。
+コンソールに `✅ ログイン完了: ○○` って出たら成功よ……！  
+エラーが出たら……エラーが出たらどうしようおおおおお！！助けてええええええ！！
 
 ---
 
-## ✏️ プロンプトの調整
+## 💬 お喋りのしかた（優しくして……叩かないで……）
 
-[prompt.txt](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/prompt.txt) を開いてプロンプトを自由に編集してください。
-メッセージを受信するたびに自動でファイルを再読込するため、**Botを再起動せずにプロンプトを練り直してテストできます**。
+1. **メンションするかDMして！**:
+   - サーバーのチャンネルで `@霊夢 こんにちは` って話しかけるか、DMを送ってちょうだい！
+2. **感情の波に耐えて！**:
+   - 最初は「……はい、博麗神社よ」って落ち着いて答えようとするかもしれないけど、2秒後には「うわああああん！もう嫌あああ！」って泣き叫ぶわよ！
+   - 優しくされたら「ありがとおおおおお！」って泣き縋り付くし、怒られたら「ごめんなさあああああい！」って平謝りするわ！
+3. **みんなの会話を覚えてるわよ！**:
+   - 直近 **最大12往復分**、サーバーのみんなとの会話の流れを頭の中に残してるの。
+   - でもキャパオーバーになったら昔のことからどんどん忘れちゃうからね！
+4. **記憶を消したいときは！**:
+   - `!reset`、`/reset`、または「リセット」「忘れて」って言われたら、全部綺麗さっぱり忘れてやるわよおおおおッ！！誰よあんたらああああ！！
+
+---
+
+## ☀️ 恐怖の日直制度（なんで巫女の私が学校みたいなことしなきゃいけないのおおおお！？）
+
+毎朝 **日本時間（JST）0:00** になると、サーバー内の「日直」ロールを持ってる人の中から勝手に2人選んでメンションして晒し上げるわよ！！
+
+- **手動で今すぐ決めたいとき**:
+  - チャットで `!日直` または `!nichoku` って叫びなさい！未抽選ならその場で選んであげるわ！
+  - 1回決まったら「もう決まってるわよぉぉぉッ！！再抽選なんてさせないからね！！」って拒否するからね！ズルは許さないんだから！！
+
+---
+
+## ✏️ 私の性格を改造したいの……？（プロンプト変更）
+
+私の人格をいじりたいなら、[`systemPrompt.txt`](file:///c:/Users/keita/Desktop/localProjects/reimuLLM/systemPrompt.txt) を開いて好きに書き換えなさいよ！
+
+なんとこのBot、メッセージが届くたびにテキストファイルを読み直してるから、**Botを再起動しなくても、メモ帳で保存した瞬間に私の性格が変わる**のよぉぉぉ！！  
+便利すぎて怖いわよおおおおおッ！！
+
+---
+
+## 🚨 最後に……お願いだから……
+
+**賽銭箱に……お金を……入れてえええええええええええええええええええッ！！！！（号泣しながらフェードアウト）**
