@@ -144,6 +144,18 @@ async def pick_and_announce_duty(channel: discord.TextChannel) -> bool:
     await channel.send(f"【今日の日直】\n{mentions}")
     return True
 
+async def is_duty_server(guild: discord.Guild | None) -> bool:
+    """指定されたギルドが、DUTY_CHANNEL_IDを含む身内専用サーバーか判定する"""
+    if not guild:
+        return False
+    channel = client.get_channel(DUTY_CHANNEL_ID)
+    if channel is None:
+        try:
+            channel = await client.fetch_channel(DUTY_CHANNEL_ID)
+        except Exception:
+            return False
+    return isinstance(channel, discord.TextChannel) and channel.guild.id == guild.id
+
 # 毎日 日本時間 0:00 (JST / UTC+9) に実行する定期タスク
 @tasks.loop(time=time(hour=0, minute=0, tzinfo=JST))
 async def daily_duty_task():
@@ -231,8 +243,12 @@ async def on_message(message: discord.Message):
     if message.author == client.user:
         return
 
-    # 日直の手動抽選コマンド (!日直) - 1日1回、未抽選時のみ実行可能
+    # 日直の手動抽選コマンド (!日直) - 身内専用（DUTY_CHANNEL_ID が含まれるサーバーのみ有効）
     if message.content.strip() in ["!日直", "!nichoku"]:
+        if not await is_duty_server(message.guild):
+            # 対象チャンネルが含まれるサーバー以外（余所のサーバーやDM）では完全に無視する
+            return
+
         if is_duty_done_today():
             state = load_duty_state()
             m_names = state.get("member_names", [])
